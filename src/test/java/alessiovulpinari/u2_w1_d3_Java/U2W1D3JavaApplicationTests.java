@@ -1,13 +1,15 @@
 package alessiovulpinari.u2_w1_d3_Java;
 
+import alessiovulpinari.u2_w1_d3_Java.entities.Drink;
+import alessiovulpinari.u2_w1_d3_Java.entities.Order;
 import alessiovulpinari.u2_w1_d3_Java.entities.Pizza;
-import org.junit.jupiter.api.Order;
+
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class U2W1D3JavaApplicationTests {
@@ -47,6 +49,26 @@ class U2W1D3JavaApplicationTests {
 		Pizza pizza = (Pizza) ctx.getBean(pizzaName);
 
 		assertEquals(pizza.getPrice(), price);
+	}
+
+	// Controlla se lo stato di un ordine non è nullo
+	@ParameterizedTest
+	@CsvSource({"order"})
+	void checkOrderStatus(String order) {
+		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(U2W1D3JavaApplication.class);
+		Order order1 = (Order) ctx.getBean(order);
+
+		assertNotNull(order1.getState());
+	}
+
+	// Controlla se il prezzo di una bevanda è maggiore di 0
+	@ParameterizedTest
+	@CsvSource({"wine", "lemonade", "water"})
+	void checkDrinkPrice(String drink) {
+		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(U2W1D3JavaApplication.class);
+		Drink drink1 = (Drink) ctx.getBean(drink);
+
+		assertNotSame(drink1.getPrice(), 0.0);
 	}
 
 

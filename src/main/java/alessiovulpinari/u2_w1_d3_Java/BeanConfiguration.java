@@ -68,7 +68,6 @@ public class BeanConfiguration {
         return new Pizza("Salami Pizza XL", 88.99, 1660, Arrays.asList(salami(), salami()), Size.XL);
     }
 
-
     @Bean
     public Topping onion() {
         return new Topping("Onion", 0.69, 22);
